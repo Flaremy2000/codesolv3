@@ -128,7 +128,7 @@ export default {
                     btn: 'true'
                 }
             ];
-            this.functionality = this.add;
+            this.functionality = this.adddocu;
             this.showModal = true;
         },
         editdoc(item) {
@@ -142,6 +142,31 @@ export default {
             this.inputlist = []
             this.functionality = this.delete;
             this.showModal = true;
+        },
+        adddocu(form) {
+            axios.post(`/api/documento`, form,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    this.$swal({
+                        title: '¡Éxito!',
+                        text: response.data.message,
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    this.getAllDocuments();
+                }).catch(error => {
+                    this.$swal({
+                        title: '¡Error!',
+                        text: error,
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                });
+            this.showModal = false;
         }
     },
     mounted() {

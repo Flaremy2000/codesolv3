@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class DocumentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $datenow;
+
+    public function __construct()
+    {
+        $this->datenow = Carbon::now('America/Guayaquil')->format('Y-m-d');
+    }
+
     public function index(Request $request)
     {
 
@@ -30,7 +36,35 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userdata = json_decode($request->header('X-User-Data'));
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'id_categoria' => 'required',
+            'archivo' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+
+        try {
+            $document = new Document();
+            $document->title = $request->title;
+            $document->id_categoria = $request->id_categoria;
+            $document->created_by = $userdata->id_user;
+            $document->updated_by = $userdata->id_user;
+            $document->date = $this->datenow;
+            if ($request->hasFile('archivo')) {
+                $file = $request->file('archivo');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->move('documents/transparent/', $filename);
+                $document->file = $filename;
+            }
+            $document->save();
+            return response()->json(['message' => 'Documento creado correctamente'], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 500);
+        }
     }
 
     /**
@@ -46,7 +80,7 @@ class DocumentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DocumentController $documentController)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -54,7 +88,7 @@ class DocumentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DocumentController $documentController)
+    public function destroy($id)
     {
         //
     }
