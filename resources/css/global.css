@@ -1,0 +1,101 @@
+.nav-item>a {
+    cursor: pointer;
+}
+
+/* footer */
+
+.footer-style {
+    padding-top: 50px;
+    margin-top: 20px;
+}
+
+footer {
+    color: rgb(0, 0, 0);
+}
+
+footer h3 {
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+footer .footer-above {
+    padding-top: 50px;
+    background-color: #dfdfdf;
+}
+
+footer .footer-col {
+    margin-bottom: 10px;
+}
+
+footer .footer-below {
+    padding: 25px 0;
+    background-color: #ffffff;
+}
+
+/* Iconos de redes */
+.redes {
+    text-align: center;
+}
+
+.redes ul {
+    display: inline-block;
+}
+
+.redes li {
+    float: left;
+    padding: 2px 8px;
+}
+
+/*
+.navbar {
+    z-index: 0;
+} */
+
+#icon-contact {
+    margin-top: 10px;
+}
+
+#foot-icon {
+    box-shadow: 1px 1px 1px black;
+    border-radius: 10px;
+}
+
+#foot-icon:hover {
+    box-shadow: inset 1px 1px 2px black;
+}
+
+#maps-footer {
+    border-radius: 10px;
+}
+
+#maps-footer:hover {
+    box-shadow: 1px 1px 5px black;
+}
+
+/* Dropdown system  */
+/* if hover in dropdown-toggle show dropdown-menu */
+.navbar .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropstart {
+    list-style: none;
+    margin-right: 10px;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.dropstart:hover {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.logincontainer .dropstart:hover .dropdown-menu {
+    display: block;
+    position: absolute;
+    inset: 0px 0px auto auto;
+    margin: 0px;
+    transform: translate(-100px, 0px);
+}
+
+.dropdown-item:hover {
+    cursor: pointer;
+}
